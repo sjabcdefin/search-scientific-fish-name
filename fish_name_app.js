@@ -1,4 +1,5 @@
 import enquirer from "enquirer";
+import FishNameDictionary from "./fish_name_dictionary.js";
 
 class FishNameApp {
   static #searchMethods = {
@@ -8,10 +9,18 @@ class FishNameApp {
     PARTIAL: "部分一致",
   };
 
+  #dictionary;
+
+  constructor() {
+    this.#dictionary = new FishNameDictionary();
+  }
+
   async run() {
     try {
       const fishName = await this.#askFishName();
       const searchMethod = await this.#askSearchMethod();
+      this.#dictionary.loadInputFile();
+      console.log(this.#dictionary.loadedFishes[0]);
 
       switch (searchMethod) {
         case FishNameApp.#searchMethods.EXACT:
