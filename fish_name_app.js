@@ -20,30 +20,22 @@ class FishNameApp {
       const fishName = await this.#askFishName();
       const searchMethod = await this.#askSearchMethod();
       this.#dictionary.loadInputFile();
-      console.log(this.#dictionary.loadedFishes[0]);
 
       switch (searchMethod) {
         case FishNameApp.#searchMethods.EXACT:
-          console.log(
-            `fishName: ${fishName}, searchMethod: ${FishNameApp.#searchMethods.EXACT}`
-          );
+          this.#dictionary.findExactMatch(fishName);
           break;
         case FishNameApp.#searchMethods.PREFIX:
-          console.log(
-            `fishName: ${fishName}, searchMethod: ${FishNameApp.#searchMethods.PREFIX}`
-          );
+          this.#dictionary.findPrefixMatch(fishName);
           break;
         case FishNameApp.#searchMethods.SUFFIX:
-          console.log(
-            `fishName: ${fishName}, searchMethod: ${FishNameApp.#searchMethods.SUFFIX}`
-          );
+          this.#dictionary.findSuffixMatch(fishName);
           break;
         case FishNameApp.#searchMethods.PARTIAL:
-          console.log(
-            `fishName: ${fishName}, searchMethod: ${FishNameApp.#searchMethods.PARTIAL}`
-          );
+          this.#dictionary.findPartialMatch(fishName);
           break;
       }
+      this.#displayFishNames(this.#dictionary.matchedFishes);
     } catch (err) {
       console.error(`エラー：${err.message}`);
     }
@@ -92,6 +84,22 @@ class FishNameApp {
       } else {
         throw err;
       }
+    }
+  }
+
+  #displayFishNames(searchResults) {
+    const maxDisplayCount = 30;
+    const totalResultCount = searchResults.length;
+    console.log(`\n検索結果: ${totalResultCount}件`);
+    searchResults.slice(0, maxDisplayCount).forEach((searchResult, index) => {
+      console.log(
+        `\n${index + 1}. ${searchResult.japaneseName}\n  - 学名: ${searchResult.scientificName}`
+      );
+    });
+    if (totalResultCount > maxDisplayCount) {
+      console.log(
+        `\n検索結果が ${totalResultCount} 件見つかりました。そのうち、最初の ${maxDisplayCount} 件を表示しています。\nより詳細な検索結果を得るには、もう少し具体的な魚名を入力してください。`
+      );
     }
   }
 }
