@@ -1,5 +1,6 @@
 import enquirer from "enquirer";
 import FishNameDictionary from "./fish_name_dictionary.js";
+import FishNameSource from "./fish_name_source.js";
 
 class FishNameApp {
   static #searchMethods = {
@@ -19,20 +20,20 @@ class FishNameApp {
     try {
       const fishName = await this.#askFishName();
       const searchMethod = await this.#askSearchMethod();
-      this.#dictionary.loadInputFile();
+      const loadedFishes = new FishNameSource().loadInputFile();
 
       switch (searchMethod) {
         case FishNameApp.#searchMethods.EXACT:
-          this.#dictionary.findExactMatch(fishName);
+          this.#dictionary.findExactMatch(loadedFishes, fishName);
           break;
         case FishNameApp.#searchMethods.PREFIX:
-          this.#dictionary.findPrefixMatch(fishName);
+          this.#dictionary.findPrefixMatch(loadedFishes, fishName);
           break;
         case FishNameApp.#searchMethods.SUFFIX:
-          this.#dictionary.findSuffixMatch(fishName);
+          this.#dictionary.findSuffixMatch(loadedFishes, fishName);
           break;
         case FishNameApp.#searchMethods.PARTIAL:
-          this.#dictionary.findPartialMatch(fishName);
+          this.#dictionary.findPartialMatch(loadedFishes, fishName);
           break;
       }
       this.#displayFishNames(this.#dictionary.matchedFishes);
