@@ -1,50 +1,37 @@
-import FishName from "./fish_name.js";
-
 class FishNameDictionary {
-  static #JAPANESE_NAME = "和名";
-  static #SCIENTIFIC_NAME = "学名";
+  #loadedFishes;
 
-  #matchedFishes;
-
-  constructor() {
-    this.matchedFishes = [];
+  constructor(loadedFishes) {
+    this.loadedFishes = loadedFishes;
   }
 
-  get matchedFishes() {
-    return this.#matchedFishes;
+  get loadedFishes() {
+    return this.#loadedFishes;
   }
 
-  set matchedFishes(results) {
-    this.#matchedFishes = results.map(
-      (result) =>
-        new FishName(
-          result[FishNameDictionary.#JAPANESE_NAME],
-          result[FishNameDictionary.#SCIENTIFIC_NAME]
-        )
+  set loadedFishes(loadedFishes) {
+    this.#loadedFishes = loadedFishes;
+  }
+
+  findExactMatch(fishName) {
+    return this.loadedFishes.filter((fish) => fish.japaneseName === fishName);
+  }
+
+  findPrefixMatch(fishName) {
+    return this.loadedFishes.filter((fish) =>
+      fish.japaneseName.startsWith(fishName)
     );
   }
 
-  findExactMatch(loadedFishes, fishName) {
-    this.matchedFishes = loadedFishes.filter(
-      (fish) => fish[FishNameDictionary.#JAPANESE_NAME] === fishName
+  findSuffixMatch(fishName) {
+    return this.loadedFishes.filter((fish) =>
+      fish.japaneseName.endsWith(fishName)
     );
   }
 
-  findPrefixMatch(loadedFishes, fishName) {
-    this.matchedFishes = loadedFishes.filter((fish) =>
-      fish[FishNameDictionary.#JAPANESE_NAME].startsWith(fishName)
-    );
-  }
-
-  findSuffixMatch(loadedFishes, fishName) {
-    this.matchedFishes = loadedFishes.filter((fish) =>
-      fish[FishNameDictionary.#JAPANESE_NAME].endsWith(fishName)
-    );
-  }
-
-  findPartialMatch(loadedFishes, fishName) {
-    this.matchedFishes = loadedFishes.filter((fish) =>
-      fish[FishNameDictionary.#JAPANESE_NAME].includes(fishName)
+  findPartialMatch(fishName) {
+    return this.loadedFishes.filter((fish) =>
+      fish.japaneseName.includes(fishName)
     );
   }
 }

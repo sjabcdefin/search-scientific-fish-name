@@ -10,33 +10,29 @@ class FishNameApp {
     PARTIAL: "部分一致",
   };
 
-  #dictionary;
-
-  constructor() {
-    this.#dictionary = new FishNameDictionary();
-  }
-
   async run() {
     try {
       const fishName = await this.#askFishName();
       const searchMethod = await this.#askSearchMethod();
       const loadedFishes = new FishNameSource().loadInputFile();
+      const dictionary = new FishNameDictionary(loadedFishes);
 
+      let searchResults = [];
       switch (searchMethod) {
         case FishNameApp.#searchMethods.EXACT:
-          this.#dictionary.findExactMatch(loadedFishes, fishName);
+          searchResults = dictionary.findExactMatch(fishName);
           break;
         case FishNameApp.#searchMethods.PREFIX:
-          this.#dictionary.findPrefixMatch(loadedFishes, fishName);
+          searchResults = dictionary.findPrefixMatch(fishName);
           break;
         case FishNameApp.#searchMethods.SUFFIX:
-          this.#dictionary.findSuffixMatch(loadedFishes, fishName);
+          searchResults = dictionary.findSuffixMatch(fishName);
           break;
         case FishNameApp.#searchMethods.PARTIAL:
-          this.#dictionary.findPartialMatch(loadedFishes, fishName);
+          searchResults = dictionary.findPartialMatch(fishName);
           break;
       }
-      this.#displayFishNames(this.#dictionary.matchedFishes);
+      this.#displayFishNames(searchResults);
     } catch (err) {
       console.error(`エラー：${err.message}`);
     }
