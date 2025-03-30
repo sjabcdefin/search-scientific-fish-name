@@ -1,6 +1,8 @@
 import fs from "fs";
 import iconv from "iconv-lite";
 import { parse } from "csv-parse/sync";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
 import FishName from "./fish_name.js";
 
 class FishNameSource {
@@ -8,7 +10,9 @@ class FishNameSource {
   static #SCIENTIFIC_NAME = "学名";
 
   loadInputFile() {
-    const csvFilePath = "../data/20250123_JAFList.csv";
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    const csvFilePath = join(__dirname, "../data/20250123_JAFList.csv");
     const fileContent = fs.readFileSync(csvFilePath);
     const decodedContent = iconv.decode(fileContent, "shift_jis");
     const loadedFishes = parse(decodedContent, { columns: true });
