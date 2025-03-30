@@ -19,19 +19,19 @@ class FishNameDictionary {
 
   findPrefixMatch(fishName) {
     return this.loadedFishes.filter((fish) =>
-      fish.japaneseName.startsWith(fishName)
+      fish.japaneseName.startsWith(fishName),
     );
   }
 
   findSuffixMatch(fishName) {
     return this.loadedFishes.filter((fish) =>
-      fish.japaneseName.endsWith(fishName)
+      fish.japaneseName.endsWith(fishName),
     );
   }
 
   findPartialMatch(fishName) {
     return this.loadedFishes.filter((fish) =>
-      fish.japaneseName.includes(fishName)
+      fish.japaneseName.includes(fishName),
     );
   }
 }

@@ -90,12 +90,12 @@ class FishNameApp {
     console.log(`\n検索結果: ${totalResultCount}件`);
     searchResults.slice(0, maxDisplayCount).forEach((searchResult, index) => {
       console.log(
-        `\n${index + 1}. ${searchResult.japaneseName}\n  - 学名: ${searchResult.scientificName}`
+        `\n${index + 1}. ${searchResult.japaneseName}\n  - 学名: ${searchResult.scientificName}`,
       );
     });
     if (totalResultCount > maxDisplayCount) {
       console.log(
-        `\n検索結果が ${totalResultCount} 件見つかりました。そのうち、最初の ${maxDisplayCount} 件を表示しています。\nより詳細な検索結果を得るには、もう少し具体的な魚名を入力してください。`
+        `\n検索結果が ${totalResultCount} 件見つかりました。そのうち、最初の ${maxDisplayCount} 件を表示しています。\nより詳細な検索結果を得るには、もう少し具体的な魚名を入力してください。`,
       );
     }
   }

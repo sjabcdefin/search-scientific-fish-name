@@ -20,8 +20,8 @@ class FishNameSource {
       (fish) =>
         new FishName(
           fish[FishNameSource.#JAPANESE_NAME],
-          fish[FishNameSource.#SCIENTIFIC_NAME]
-        )
+          fish[FishNameSource.#SCIENTIFIC_NAME],
+        ),
     );
   }
 }
