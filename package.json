@@ -2,6 +2,9 @@
   "name": "search-scientific-fish-name",
   "version": "1.0.0",
   "main": "index.js",
+  "bin": {
+    "search-scientific-fish-name": "/src/search_scientific_fish_name.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "fix": "prettier --write . && eslint --fix .",
