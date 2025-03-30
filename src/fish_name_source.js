@@ -8,7 +8,7 @@ class FishNameSource {
   static #SCIENTIFIC_NAME = "学名";
 
   loadInputFile() {
-    const csvFilePath = "20250123_JAFList.csv";
+    const csvFilePath = "../data/20250123_JAFList.csv";
     const fileContent = fs.readFileSync(csvFilePath);
     const decodedContent = iconv.decode(fileContent, "shift_jis");
     const loadedFishes = parse(decodedContent, { columns: true });
