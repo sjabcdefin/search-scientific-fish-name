@@ -13,23 +13,23 @@ class FishNameDictionary {
     this.#loadedFishes = loadedFishes;
   }
 
-  findExactMatch(fishName) {
+  searchExactMatch(fishName) {
     return this.loadedFishes.filter((fish) => fish.japaneseName === fishName);
   }
 
-  findPrefixMatch(fishName) {
+  searchPrefixMatch(fishName) {
     return this.loadedFishes.filter((fish) =>
       fish.japaneseName.startsWith(fishName),
     );
   }
 
-  findSuffixMatch(fishName) {
+  searchSuffixMatch(fishName) {
     return this.loadedFishes.filter((fish) =>
       fish.japaneseName.endsWith(fishName),
     );
   }
 
-  findPartialMatch(fishName) {
+  searchPartialMatch(fishName) {
     return this.loadedFishes.filter((fish) =>
       fish.japaneseName.includes(fishName),
     );

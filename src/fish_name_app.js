@@ -21,16 +21,16 @@ class FishNameApp {
       let searchResults = [];
       switch (searchMethod) {
         case FishNameApp.#searchMethods.EXACT:
-          searchResults = dictionary.findExactMatch(fishName);
+          searchResults = dictionary.searchExactMatch(fishName);
           break;
         case FishNameApp.#searchMethods.PREFIX:
-          searchResults = dictionary.findPrefixMatch(fishName);
+          searchResults = dictionary.searchPrefixMatch(fishName);
           break;
         case FishNameApp.#searchMethods.SUFFIX:
-          searchResults = dictionary.findSuffixMatch(fishName);
+          searchResults = dictionary.searchSuffixMatch(fishName);
           break;
         case FishNameApp.#searchMethods.PARTIAL:
-          searchResults = dictionary.findPartialMatch(fishName);
+          searchResults = dictionary.searchPartialMatch(fishName);
           break;
       }
       this.#displayFishNames(searchResults);
