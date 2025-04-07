@@ -9,11 +9,11 @@ class FishNameSource {
   static #JAPANESE_NAME = "和名";
   static #SCIENTIFIC_NAME = "学名";
 
-  loadInputFile() {
+  loadInputFile(relativeFilePath) {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = dirname(__filename);
-    const csvFilePath = join(__dirname, "../data/20250123_JAFList.csv");
-    const fileContent = fs.readFileSync(csvFilePath);
+    const absoluteFilePath = join(__dirname, relativeFilePath);
+    const fileContent = fs.readFileSync(absoluteFilePath);
     const decodedContent = iconv.decode(fileContent, "shift_jis");
     const loadedFishes = parse(decodedContent, { columns: true });
     return loadedFishes.map(

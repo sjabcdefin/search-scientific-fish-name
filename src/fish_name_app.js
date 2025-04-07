@@ -14,7 +14,8 @@ class FishNameApp {
     try {
       const fishName = await this.#askFishName();
       const searchMethod = await this.#askSearchMethod();
-      const loadedFishes = new FishNameSource().loadInputFile();
+      const relativeFilePath = "../data/20250123_JAFList.csv";
+      const loadedFishes = new FishNameSource().loadInputFile(relativeFilePath);
       const dictionary = new FishNameDictionary(loadedFishes);
 
       let searchResults = [];
