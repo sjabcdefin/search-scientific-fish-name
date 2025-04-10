@@ -18,21 +18,17 @@ class FishNameApp {
       const loadedFishes = new FishNameSource().loadInputFile(relativeFilePath);
       const dictionary = new FishNameDictionary(loadedFishes);
 
-      let searchResults = [];
-      switch (searchMethod) {
-        case FishNameApp.#searchMethods.EXACT:
-          searchResults = dictionary.searchExactMatch(fishName);
-          break;
-        case FishNameApp.#searchMethods.PREFIX:
-          searchResults = dictionary.searchPrefixMatch(fishName);
-          break;
-        case FishNameApp.#searchMethods.SUFFIX:
-          searchResults = dictionary.searchSuffixMatch(fishName);
-          break;
-        case FishNameApp.#searchMethods.PARTIAL:
-          searchResults = dictionary.searchPartialMatch(fishName);
-          break;
-      }
+      const strategies = {
+        [FishNameApp.#searchMethods.EXACT]: () =>
+          dictionary.searchExactMatch(fishName),
+        [FishNameApp.#searchMethods.PREFIX]: () =>
+          dictionary.searchPrefixMatch(fishName),
+        [FishNameApp.#searchMethods.SUFFIX]: () =>
+          dictionary.searchSuffixMatch(fishName),
+        [FishNameApp.#searchMethods.PARTIAL]: () =>
+          dictionary.searchPartialMatch(fishName),
+      };
+      const searchResults = strategies[searchMethod]();
       this.#displayFishNames(searchResults);
     } catch (err) {
       console.error(`エラー：${err.message}`);
