@@ -1,6 +1,6 @@
 {
   "name": "search-scientific-fish-name",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "index.js",
   "bin": {
     "search-scientific-fish-name": "/src/search_scientific_fish_name.js"
